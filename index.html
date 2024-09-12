@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="tabs">
+        <button class="tablink" onclick="openTab('tab1')">Tab 1</button>
+        <button class="tablink" onclick="openTab('tab2')">Tab 2</button>
+        <button class="tablink" onclick="openTab('tab3')">Tab 3</button>
+    </div>
+
+    <div id="tab1" class="tabcontent">
+        <h2>Tab 1</h2>
+        <img src="image1.jpg" alt="Image 1">
+        <img src="image2.jpg" alt="Image 2">
+    </div>
+
+    <div id="tab2" class="tabcontent">
+        <h2>Tab 2</h2>
+        <img src="image3.jpg" alt="Image 3">
+        <img src="image4.jpg" alt="Image 4">
+    </div>
+
+    <div id="tab3" class="tabcontent">
+        <h2>Tab 3</h2>
+        <img src="image5.jpg" alt="Image 5">
+        <img src="image6.jpg" alt="Image 6">
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
