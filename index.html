@@ -81,7 +81,7 @@
         }
 
         .main-content {
-            margin-top: 80px;
+            margin-top: 110px;
             padding: 0;
         }
 
@@ -116,49 +116,7 @@
             display: block;
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.95);
-        }
-
-        .modal-content {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-        }
-
-        .modal img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 30px;
-            right: 40px;
-            color: black;
-            font-size: 30px;
-            cursor: pointer;
-            z-index: 2001;
-            transition: opacity 0.3s;
-        }
-
-        .modal-close:hover {
-            opacity: 0.7;
-        }
-
-        .info-panel {
+.info-panel {
             display: none;
             position: fixed;
             top: 80px;
@@ -174,6 +132,37 @@
             display: block;
         }
 
+        .sub-nav {
+            display: none;
+            justify-content: center;
+            gap: 30px;
+            padding: 10px 40px 14px;
+            border-top: 1px solid #eee;
+        }
+
+        .sub-nav.active {
+            display: flex;
+        }
+
+        .sub-nav-item {
+            cursor: pointer;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: lowercase;
+            color: #999;
+            transition: color 0.3s;
+        }
+
+        .sub-nav-item:hover {
+            color: black;
+        }
+
+        .sub-nav-item.active {
+            color: black;
+            border-bottom: 1px solid black;
+            padding-bottom: 2px;
+        }
+
         .numbering {
             position: fixed;
             bottom: 40px;
@@ -181,6 +170,111 @@
             font-size: 12px;
             letter-spacing: 1px;
             z-index: 1000;
+        }
+
+        .resume {
+            display: none;
+            padding: 60px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .resume.active {
+            display: block;
+        }
+
+        .resume-header {
+            margin-bottom: 48px;
+        }
+
+        .resume-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .resume-header p {
+            font-size: 14px;
+            color: #555;
+            margin-top: 6px;
+            line-height: 1.6;
+        }
+
+        .resume-section {
+            margin-bottom: 40px;
+        }
+
+        .resume-section-title {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #999;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+        }
+
+        .resume-item {
+            margin-bottom: 24px;
+        }
+
+        .resume-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2px;
+        }
+
+        .resume-item-title {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .resume-item-date {
+            font-size: 12px;
+            color: #999;
+            white-space: nowrap;
+        }
+
+        .resume-item-company {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 6px;
+        }
+
+        .resume-item-desc {
+            font-size: 13px;
+            color: #444;
+            line-height: 1.7;
+        }
+
+        .resume-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .resume-skill {
+            font-size: 12px;
+            border: 1px solid #ddd;
+            padding: 4px 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .resume-langs {
+            font-size: 13px;
+            color: #444;
+            line-height: 2;
+        }
+
+        @media (max-width: 768px) {
+            .resume {
+                padding: 40px 20px;
+            }
+            .resume-item-header {
+                flex-direction: column;
+                gap: 2px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -218,12 +312,7 @@
                 left: 20px;
             }
 
-            .modal-close {
-                right: 20px;
-                top: 20px;
-            }
-
-            .info-panel {
+.info-panel {
                 right: 20px;
                 max-width: 250px;
             }
@@ -245,34 +334,39 @@
         <nav class="nav">
             <div class="logo">chad</div>
             <div class="nav-menu">
-                <div class="nav-item active" onclick="showGallery('snaps')">snaps</div>
-                <div class="nav-item" onclick="showGallery('motion')">motion</div>
-                <div class="nav-item" onclick="showGallery('landscape')">landscape</div>
+                <div class="nav-item active" onclick="showTab('resume')">resume</div>
+
+                <div class="nav-item" onclick="showTab('photography')">photography</div>
             </div>
             <div class="info-btn" onclick="toggleInfo()">INFO</div>
         </nav>
+        <div id="subNav" class="sub-nav">
+            <div class="sub-nav-item active" onclick="showGallery('snaps')">snaps</div>
+            <div class="sub-nav-item" onclick="showGallery('motion')">motion</div>
+            <div class="sub-nav-item" onclick="showGallery('landscape')">landscape</div>
+        </div>
     </div>
 
     <div class="main-content">
         <!-- Snaps Gallery -->
-        <div id="snaps" class="gallery active">
+        <div id="snaps" class="gallery">
             <div class="photo-grid">
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/52247190452_0128ac972d_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/52247190452', '_blank')">
                     <img src="https://live.staticflickr.com/65535/52247190452_0128ac972d_o.jpg" alt="">
                 </div>
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/52248659575_8b1feb1663_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/52248659575', '_blank')">
                     <img src="https://live.staticflickr.com/65535/52248659575_8b1feb1663_o.jpg" alt="">
                 </div>
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/53157770330_779fc033c2_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/53157770330', '_blank')">
                     <img src="https://live.staticflickr.com/65535/53157770330_779fc033c2_o.jpg" alt="">
                 </div>
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/52720773637_eb283ed69d_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/52720773637', '_blank')">
                     <img src="https://live.staticflickr.com/65535/52720773637_eb283ed69d_o.jpg" alt="">
                 </div>
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/52352588676_c57dd3155d_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/52352588676', '_blank')">
                     <img src="https://live.staticflickr.com/65535/52352588676_c57dd3155d_o.jpg" alt="">
                 </div>
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/52202498573_bfff0afa3a_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/52202498573', '_blank')">
                     <img src="https://live.staticflickr.com/65535/52202498573_bfff0afa3a_o.jpg" alt="">
                 </div>
             </div>
@@ -281,7 +375,7 @@
         <!-- Motion Gallery -->
         <div id="motion" class="gallery">
             <div class="photo-grid">
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/52776510985_c08c75e4cd_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/52776510985', '_blank')">
                     <img src="https://live.staticflickr.com/65535/52776510985_c08c75e4cd_o.jpg" alt="">
                 </div>            </div>
         </div>
@@ -289,60 +383,149 @@
         <!-- Landscape Gallery -->
         <div id="landscape" class="gallery">
             <div class="photo-grid">
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/52776510985_c08c75e4cd_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/52776510985', '_blank')">
                     <img src="https://live.staticflickr.com/65535/52776510985_c08c75e4cd_o.jpg" alt="">
                 </div>
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/53456727250_0c3049e406_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/53456727250', '_blank')">
                     <img src="https://live.staticflickr.com/65535/53456727250_0c3049e406_o.jpg" alt="">
                 </div>
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/53456721230_c2c3dd6757_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/53456721230', '_blank')">
                     <img src="https://live.staticflickr.com/65535/53456721230_c2c3dd6757_o.jpg" alt="">
                 </div>
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/52228485630_40c9dd7c0c_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/52228485630', '_blank')">
                     <img src="https://live.staticflickr.com/65535/52228485630_40c9dd7c0c_o.jpg" alt="">
                 </div>
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/52248444999_670e119080_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/52248444999', '_blank')">
                     <img src="https://live.staticflickr.com/65535/52248444999_670e119080_o.jpg" alt="">
                 </div>
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/48996939893_cb7dd67a16_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/48996939893', '_blank')">
                     <img src="https://live.staticflickr.com/65535/48996939893_cb7dd67a16_o.jpg" alt="">
                 </div>
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/53146793427_933183b419_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/53146793427', '_blank')">
                     <img src="https://live.staticflickr.com/65535/53146793427_933183b419_o.jpg" alt="">
                 </div>
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/53153752949_4ba6a7ffa9_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/53153752949', '_blank')">
                     <img src="https://live.staticflickr.com/65535/53153752949_4ba6a7ffa9_o.jpg" alt="">
                 </div>
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/52283161839_ac06f68bd3_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/52283161839', '_blank')">
                     <img src="https://live.staticflickr.com/65535/52283161839_ac06f68bd3_o.jpg" alt="">
                 </div>
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/53456720300_7fd1d8334f_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/53456720300', '_blank')">
                     <img src="https://live.staticflickr.com/65535/53456720300_7fd1d8334f_o.jpg" alt="">
                 </div>
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/54693603485_eb34582e58_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/54693603485', '_blank')">
                     <img src="https://live.staticflickr.com/65535/54693603485_eb34582e58_o.jpg" alt="">
                 </div>
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/52776510985_c08c75e4cd_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/52776510985', '_blank')">
                     <img src="https://live.staticflickr.com/65535/52776510985_c08c75e4cd_o.jpg" alt="">
                 </div>
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/52202499253_29827f59d6_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/52202499253', '_blank')">
                     <img src="https://live.staticflickr.com/65535/52202499253_29827f59d6_o.jpg" alt="">
                 </div>
-                <div class="photo-item" onclick="openModal('https://live.staticflickr.com/65535/52248661150_e8d6380368_o.jpg')">
+                <div class="photo-item" onclick="window.open('https://www.flickr.com/photos/131401388/52248661150', '_blank')">
                     <img src="https://live.staticflickr.com/65535/52248661150_e8d6380368_o.jpg" alt="">
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Modal -->
-    <div id="modal" class="modal" onclick="closeModal()">
-        <div class="modal-close">&times;</div>
-        <div class="modal-content">
-            <img id="modalImg" src="" alt="">
+        <!-- Resume -->
+        <div id="resume" class="resume active">
+            <div class="resume-header">
+                <h1>Chad Lortie</h1>
+                <p>Delivery Solutions Architect @ Databricks<br>Montreal, Quebec, Canada &mdash; lortie.chad@gmail.com</p>
+            </div>
+
+            <div class="resume-section">
+                <div class="resume-section-title">Experience</div>
+
+                <div class="resume-item">
+                    <div class="resume-item-header">
+                        <span class="resume-item-title">Delivery Solutions Architect</span>
+                        <span class="resume-item-date">Aug 2024 — Present</span>
+                    </div>
+                    <div class="resume-item-company">Databricks &mdash; Montreal, QC</div>
+                    <div class="resume-item-desc">Lead the design and delivery of scalable data and AI solutions on the Databricks Lakehouse Platform across transportation, energy, and gaming sectors. Architect high-performance pipelines using Delta Lake, Spark, and MLflow across Azure and GCP. Presented at Google Next 2025 and All In Montreal 2025. President Club 2026.</div>
+                </div>
+
+                <div class="resume-item">
+                    <div class="resume-item-header">
+                        <span class="resume-item-title">Sr. Delivery Solutions Engineer</span>
+                        <span class="resume-item-date">Oct 2022 — Jul 2024</span>
+                    </div>
+                    <div class="resume-item-company">Databricks &mdash; Montreal, QC</div>
+                    <div class="resume-item-desc">Architected end-to-end data solutions using Spark, Delta Lake, and MLflow. Mentored client teams on governance, security, and operational excellence. Speaker at Data Intelligence Days and Generative AI & LLMs Montreal (2024).</div>
+                </div>
+
+                <div class="resume-item">
+                    <div class="resume-item-header">
+                        <span class="resume-item-title">Senior Data Science Consultant</span>
+                        <span class="resume-item-date">Mar 2020 — Oct 2022</span>
+                    </div>
+                    <div class="resume-item-company">IBM &mdash; Montreal, QC</div>
+                    <div class="resume-item-desc">Built image recognition models (CNN, ResNet) using TensorFlow. Co-created a metric evaluation tool to standardize reporting across data scientists. Contributed to MLOps automation retraining pipelines.</div>
+                </div>
+
+                <div class="resume-item">
+                    <div class="resume-item-header">
+                        <span class="resume-item-title">Data Science Consultant</span>
+                        <span class="resume-item-date">Apr 2018 — Mar 2020</span>
+                    </div>
+                    <div class="resume-item-company">IBM &mdash; Montreal, QC</div>
+                    <div class="resume-item-desc">Delivered data-driven solutions in travel, transportation, and telecom using operational research, cognitive forecasting, and NLP. Built and deployed automated ML predictive models with Python, PySpark, SQL, and Keras.</div>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <div class="resume-section-title">Education</div>
+
+                <div class="resume-item">
+                    <div class="resume-item-header">
+                        <span class="resume-item-title">M.Sc. Data Science & Business Analytics</span>
+                        <span class="resume-item-date">2016 — 2017</span>
+                    </div>
+                    <div class="resume-item-company">HEC Montréal</div>
+                </div>
+
+                <div class="resume-item">
+                    <div class="resume-item-header">
+                        <span class="resume-item-title">B.Eng. Industrial Engineering</span>
+                        <span class="resume-item-date">2012 — 2016</span>
+                    </div>
+                    <div class="resume-item-company">Polytechnique Montréal &mdash; Exchange at Linköping University (2015)</div>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <div class="resume-section-title">Certifications</div>
+                <div class="resume-item-desc">Databricks Certified Generative AI Engineer Associate &mdash; Neural Networks and Deep Learning &mdash; Convolutional Neural Networks</div>
+            </div>
+
+            <div class="resume-section">
+                <div class="resume-section-title">Skills</div>
+                <div class="resume-skills">
+                    <span class="resume-skill">Databricks</span>
+                    <span class="resume-skill">GenAI</span>
+                    <span class="resume-skill">MLOps</span>
+                    <span class="resume-skill">Delta Lake</span>
+                    <span class="resume-skill">Apache Spark</span>
+                    <span class="resume-skill">MLflow</span>
+                    <span class="resume-skill">Python</span>
+                    <span class="resume-skill">PySpark</span>
+                    <span class="resume-skill">SQL</span>
+                    <span class="resume-skill">TensorFlow</span>
+                    <span class="resume-skill">Azure</span>
+                    <span class="resume-skill">GCP</span>
+                    <span class="resume-skill">Solutions Architecture</span>
+                    <span class="resume-skill">Project Delivery</span>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <div class="resume-section-title">Languages</div>
+                <div class="resume-langs">French (Native) &mdash; English (Professional)</div>
+            </div>
         </div>
     </div>
-
-    <!-- Info Panel -->
+<!-- Info Panel -->
     <div id="infoPanel" class="info-panel">
         <p>Photographer based in Montreal</p>
         <p>Available for commissions</p>
@@ -360,31 +543,35 @@
         let currentImageIndex = 0;
         let totalImages = 0;
 
-        function showGallery(gallery) {
-            // Hide all galleries
-            document.querySelectorAll('.gallery').forEach(g => g.classList.remove('active'));
+        function showTab(tab) {
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            
-            // Show selected gallery
+            event.target.classList.add('active');
+
+            if (tab === 'resume') {
+                document.querySelectorAll('.gallery, .resume').forEach(g => g.classList.remove('active'));
+                document.getElementById('resume').classList.add('active');
+                document.getElementById('subNav').classList.remove('active');
+            } else {
+                document.getElementById('subNav').classList.add('active');
+                const active = document.querySelector('.sub-nav-item.active');
+                const gallery = active ? active.textContent.trim() : 'snaps';
+                document.querySelectorAll('.gallery, .resume').forEach(g => g.classList.remove('active'));
+                document.getElementById(gallery).classList.add('active');
+                currentGallery = gallery;
+                updateNumbering();
+            }
+        }
+
+        function showGallery(gallery) {
+            document.querySelectorAll('.gallery').forEach(g => g.classList.remove('active'));
+            document.querySelectorAll('.sub-nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById(gallery).classList.add('active');
             event.target.classList.add('active');
-            
             currentGallery = gallery;
             updateNumbering();
         }
 
-        function openModal(imageSrc) {
-            document.getElementById('modalImg').src = imageSrc;
-            document.getElementById('modal').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        function toggleInfo() {
+function toggleInfo() {
             const panel = document.getElementById('infoPanel');
             panel.classList.toggle('active');
         }
@@ -413,12 +600,9 @@
             updateNumbering();
         });
 
-        // Close modal with escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                closeModal();
-                const panel = document.getElementById('infoPanel');
-                panel.classList.remove('active');
+                document.getElementById('infoPanel').classList.remove('active');
             }
         });
 
