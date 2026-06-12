@@ -13,54 +13,48 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install flickrapi
+        run: pip install flickrapi
+
       - name: Fetch photos from Flickr
         env:
           FLICKR_API_KEY: ${{ secrets.FLICKR_API_KEY }}
+          FLICKR_SECRET: ${{ secrets.FLICKR_SECRET }}
         run: |
           python3 << 'EOF'
-          import urllib.request, json, os
+          import flickrapi, json, os
 
           api_key = os.environ['FLICKR_API_KEY']
-          base = 'https://www.flickr.com/services/rest'
-
-          def call(method, **params):
-              p = '&'.join(f'{k}={v}' for k, v in params.items())
-              url = f'{base}?method={method}&api_key={api_key}&format=json&nojsoncallback=1&{p}'
-              with urllib.request.urlopen(url) as r:
-                  return json.loads(r.read())
-
+          secret = os.environ.get('FLICKR_SECRET', '')
           user_id = '131401388'
 
-          # get all photosets
-          res = call('flickr.photosets.getList', user_id=user_id, per_page=500)
-          print(f'API stat: {res.get("stat")}')
-          if res.get('stat') != 'ok':
-              raise Exception(f'Flickr API error: {res}')
-          photosets = res['photosets']['photoset']
+          flickr = flickrapi.FlickrAPI(api_key, secret, format='parsed-json')
+
+          photosets = flickr.photosets.getList(user_id=user_id, per_page=500)
+          print(f'Found {len(photosets["photosets"]["photoset"])} albums')
 
           galleries = {}
-          for ps in photosets:
+          for ps in photosets['photosets']['photoset']:
               title = ps['title']['_content'].strip().lower()
               ps_id = ps['id']
 
-              # fetch photos in this photoset
-              res2 = call('flickr.photosets.getPhotos',
-                          photoset_id=ps_id, user_id=user_id,
-                          extras='url_b,url_m', per_page=500, media='photos')
+              res = flickr.photosets.getPhotos(
+                  photoset_id=ps_id, user_id=user_id,
+                  extras='url_b,url_m', per_page=500, media='photos'
+              )
               photos = []
-              for p in res2['photoset']['photo']:
+              for p in res['photoset']['photo']:
                   photos.append({
                       'id': p['id'],
                       'url': p.get('url_b') or p.get('url_m', ''),
-                      'flickr': f'https://www.flickr.com/photos/131401388/{p["id"]}'
+                      'flickr': f'https://www.flickr.com/photos/{user_id}/{p["id"]}'
                   })
-
               galleries[title] = photos
+              print(f'  {title}: {len(photos)} photos')
 
           with open('photos.json', 'w') as f:
               json.dump(galleries, f)
-
-          print(f'Generated photos.json with galleries: {list(galleries.keys())}')
+          print('Done')
           EOF
 
       - name: Commit photos.json
