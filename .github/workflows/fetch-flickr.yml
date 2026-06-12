@@ -3,6 +3,8 @@ name: Fetch Flickr Photos
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'photos.json'
   schedule:
     - cron: '0 6 * * *'
   workflow_dispatch:
@@ -15,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install flickrapi
         run: pip install flickrapi
