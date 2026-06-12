@@ -26,7 +26,7 @@ jobs:
 
           api_key = os.environ['FLICKR_API_KEY']
           secret = os.environ.get('FLICKR_SECRET', '')
-          user_id = '131401388'
+          user_id = '131401388@N03'
 
           flickr = flickrapi.FlickrAPI(api_key, secret, format='parsed-json')
 
@@ -47,7 +47,7 @@ jobs:
                   photos.append({
                       'id': p['id'],
                       'url': p.get('url_b') or p.get('url_m', ''),
-                      'flickr': f'https://www.flickr.com/photos/{user_id}/{p["id"]}'
+                      'flickr': f'https://www.flickr.com/photos/131401388@N03/{p["id"]}'
                   })
               galleries[title] = photos
               print(f'  {title}: {len(photos)} photos')
