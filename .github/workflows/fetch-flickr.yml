@@ -29,17 +29,13 @@ jobs:
               with urllib.request.urlopen(url) as r:
                   return json.loads(r.read())
 
-          # resolve NSID — try lookupUser, fall back to numeric ID directly
-          res = call('flickr.urls.lookupUser', url='https://www.flickr.com/people/131401388')
-          if res.get('stat') == 'ok':
-              user_id = res['user']['id']
-          else:
-              res = call('flickr.people.getInfo', user_id='131401388')
-              user_id = res['person']['id']
-          print(f'Resolved user_id: {user_id}')
+          user_id = '131401388'
 
           # get all photosets
           res = call('flickr.photosets.getList', user_id=user_id, per_page=500)
+          print(f'API stat: {res.get("stat")}')
+          if res.get('stat') != 'ok':
+              raise Exception(f'Flickr API error: {res}')
           photosets = res['photosets']['photoset']
 
           galleries = {}
