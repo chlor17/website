@@ -47,13 +47,13 @@ jobs:
 
               res = flickr.photosets.getPhotos(
                   photoset_id=ps_id, user_id=user_id,
-                  extras='url_b,url_m', per_page=500, media='photos'
+                  extras='url_o,url_k,url_h,url_b,url_m', per_page=500, media='photos'
               )
               photos = []
               for p in res['photoset']['photo']:
                   photos.append({
                       'id': p['id'],
-                      'url': p.get('url_b') or p.get('url_m', ''),
+                      'url': p.get('url_o') or p.get('url_k') or p.get('url_h') or p.get('url_b') or p.get('url_m', ''),
                       'flickr': f'https://www.flickr.com/photos/131401388@N03/{p["id"]}'
                   })
               galleries[title] = photos
