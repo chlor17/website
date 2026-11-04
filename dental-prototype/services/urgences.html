@@ -6,8 +6,8 @@
 <div class="proto">Prototype — maquette de démonstration, non officielle</div>
 <header><div class="wrap nav">
  <a class="logo" href="../index.html">VIRTUA<span>.</span></a>
- <nav><a href="../index.html#services">Services</a><a href="../index.html#equipe">Équipe</a><a href="../index.html#cliniques">Cliniques</a><a href="../index.html#avis">Avis</a><a href="../services/urgences.html">Urgences</a></nav>
- <a class="lang" href="#">EN</a><a class="btn" href="../index.html#rdv">Prendre rendez-vous</a>
+ <nav onclick="if(event.target.tagName==='A')this.closest('header').classList.remove('open')"><a href="../index.html#cliniques">Cliniques</a><a href="../index.html#services">Services</a><a href="../services/urgences.html">Urgences</a><a href="../index.html#equipe">Équipe</a><a href="../index.html#avis">Avis</a><a href="../index.html#faq">FAQ</a></nav>
+ <button class="menu-btn" aria-label="Menu" aria-expanded="false" onclick="const h=this.closest('header');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))">☰</button><a class="lang" href="#">EN</a><a class="btn" href="../index.html#rdv">Prendre rendez-vous</a>
 </div></header>
 <main class="wrap"><div class="page-hero"><div class="crumbs"><a href="../index.html">Accueil</a> / <a href="../index.html#services">Services</a> / Urgences dentaires</div>
 <h1>Urgences dentaires</h1><p>Douleur, dent cassée ou enflure : nous vous voyons rapidement.</p></div>
@@ -17,6 +17,11 @@
 <a class="btn" style="width:100%;justify-content:center;margin:8px 0 16px" href="../index.html#rdv">Réserver en ligne</a>
 <p style="margin:0;font-size:15px"><b>Sainte-Thérèse</b><br><a href="tel:+14505550148">450 555-0148</a></p>
 <p style="font-size:15px"><b>Saint-Jérôme</b><br><a href="tel:+14505550189">450 555-0189</a></p></aside></div></main>
-<footer><div class="wrap foot"><div><strong style="color:var(--ink)">Centre Dentaire Virtua</strong><br><a href="../cliniques/sainte-therese.html">Sainte-Thérèse</a> · <a href="../cliniques/saint-jerome.html">Saint-Jérôme</a></div><div>Facebook · Instagram</div></div></footer>
-<div class="callbar"><a class="btn ghost" href="tel:+14505550148">Appeler</a><a class="btn" href="../index.html#rdv">Réserver</a></div>
+<footer><div class="wrap"><div class="foot-grid">
+ <div><strong style="color:var(--ink);font-size:17px">Centre Dentaire Virtua</strong><p>Soins dentaires pour toute la famille dans les Basses-Laurentides.</p><a class="btn" style="display:inline-flex;color:#fff;margin-top:6px" href="../index.html#rdv">Prendre rendez-vous</a></div>
+ <div><h4>Sainte-Thérèse</h4><span>210 boul. du Curé-Lebel</span><a href="tel:+14505550148">450 555-0148</a><a href="../cliniques/sainte-therese.html">Voir la clinique →</a></div>
+ <div><h4>Saint-Jérôme</h4><span>86 rue des Martinets</span><a href="tel:+14505550189">450 555-0189</a><a href="../cliniques/saint-jerome.html">Voir la clinique →</a></div>
+ <div><h4>Services</h4><a href="../services/dentisterie-generale.html">Dentisterie générale</a><a href="../services/orthodontie.html">Orthodontie</a><a href="../services/implantologie.html">Implantologie</a><a href="../services/urgences.html">Urgences</a></div>
+</div><div class="foot-legal"><span>© 2026 Centre Dentaire Virtua · Prototype fictif</span><span><a href="#" style="display:inline">Politique de confidentialité</a> · Facebook · Instagram</span></div></div></footer>
+<div class="callbar"><a class="btn ghost" href="../index.html#cliniques">Appeler</a><a class="btn" href="../index.html#rdv">Réserver</a></div>
 </body></html>

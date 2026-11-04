@@ -17,8 +17,8 @@
 <div class="proto">Prototype — maquette de démonstration, non officielle</div>
 <header><div class="wrap nav">
  <a class="logo" href="#">VIRTUA<span>.</span></a>
- <nav><a href="#services">Services</a><a href="#equipe">Équipe</a><a href="#cliniques">Cliniques</a><a href="#avis">Avis</a><a href="#urgence">Urgences</a></nav>
- <a class="lang" href="#">EN</a>
+ <nav onclick="if(event.target.tagName==='A')this.closest('header').classList.remove('open')"><a href="#cliniques">Cliniques</a><a href="#services">Services</a><a href="#urgence">Urgences</a><a href="#equipe">Équipe</a><a href="#avis">Avis</a><a href="#faq">FAQ</a></nav>
+ <button class="menu-btn" aria-label="Menu" aria-expanded="false" onclick="const h=this.closest('header');h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))">☰</button><a class="lang" href="#">EN</a>
  <a class="btn" href="#rdv">Prendre rendez-vous</a>
 </div></header>
 
@@ -33,7 +33,7 @@
  </div>
  <div class="hero-art">
   <svg class="blob" viewBox="0 0 400 500" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0f5c63"/><stop offset="1" stop-color="#3f9a92"/></linearGradient></defs>
-   <circle cx="320" cy="90" r="120" fill="#f6d9c9" opacity=".7"/><circle cx="60" cy="420" r="140" fill="#cfe3df"/>
+   <circle cx="320" cy="90" r="120" fill="#f1d9c4" opacity=".7"/><path d="M0 400 C60 360 110 350 160 372 S260 330 320 352 S380 340 400 344 V500 H0z" fill="#cfe3df"/><path d="M0 438 C70 410 130 404 190 424 S300 398 400 416 V500 H0z" fill="#a8cfc9"/><path d="M0 470 H400 V500 H0z" fill="#9fb9c4" opacity=".55"/>
    <path d="M200 120c-38-22-92-14-104 36-10 44 8 78 18 120 9 38 12 98 34 100 24 2 22-70 52-70s28 72 52 70c22-2 25-62 34-100 10-42 28-76 18-120-12-50-66-58-104-36z" fill="url(#g)"/>
    <path d="M160 160c10-14 30-18 44-10" stroke="#fff" stroke-width="6" stroke-linecap="round" fill="none" opacity=".6"/>
   </svg>
@@ -78,25 +78,32 @@
  <div class="rv-actions" id="rv-actions"><a class="btn ghost" href="https://www.google.com/search?q=Centre+Dentaire+Virtua">Voir tous les avis sur Google</a></div>
 </div></section>
 
+<section id="faq"><div class="wrap faq-wrap"><div><h2>Questions fréquentes</h2><p class="lead">Les réponses aux questions que nos patients nous posent le plus souvent.</p></div><div class="faq"><details class="faq-item"><summary>Acceptez-vous les nouveaux patients?</summary><p>Oui, dans nos deux cliniques. Réservez en ligne en choisissant « Nouveau patient » ou appelez-nous.</p></details><details class="faq-item"><summary>Que dois-je apporter à ma première visite?</summary><p>Une pièce d’identité, votre carte d’assurance dentaire, la liste de vos médicaments et, si possible, vos radiographies récentes. Vous pouvez remplir votre questionnaire de santé en ligne avant la visite.</p></details><details class="faq-item"><summary>Facturez-vous directement les assurances?</summary><p><span class="todo">à confirmer avec la clinique</span> La plupart des cliniques transmettent la réclamation à l’assureur pour que vous ne payiez que votre portion.</p></details><details class="faq-item"><summary>Acceptez-vous le Régime canadien de soins dentaires (RCSD)?</summary><p><span class="todo">à confirmer avec la clinique</span></p></details><details class="faq-item"><summary>À quel âge amener mon enfant chez le dentiste?</summary><p>Nous recommandons une première visite vers 3 ans, ou dès que toutes les dents primaires sont sorties. Au Québec, plusieurs soins pour les enfants de moins de 10 ans sont couverts par la RAMQ.</p></details><details class="faq-item"><summary>Que faire en cas d’urgence dentaire?</summary><p>Appelez la clinique la plus proche dès l’ouverture : nous réservons des plages pour les urgences. Consultez aussi notre page <a href="services/urgences.html">Urgences</a> pour savoir quoi faire en attendant.</p></details><details class="faq-item"><summary>Le blanchiment est-il sécuritaire?</summary><p>Oui, lorsqu’il est supervisé par un dentiste. Nous évaluons d’abord vos dents et gencives pour choisir la méthode appropriée.</p></details></div></div></section>
+
 <section id="rdv" style="background:var(--brand-2)"><div class="wrap book">
  <div><h2>Prendre rendez-vous</h2><p class="lead">Réservez en moins d’une minute. Plus besoin d’attendre un rappel.</p>
   <ol class="steps"><li><b>1</b><div><strong>Choisissez la clinique et le motif</strong><br><span class="note">Nouveau patient, examen, orthodontie, implant…</span></div></li>
   <li><b>2</b><div><strong>Sélectionnez une plage horaire</strong><br><span class="note">Disponibilités réelles, synchronisées avec l’agenda de la clinique.</span></div></li>
   <li><b>3</b><div><strong>Remplissez votre questionnaire</strong><br><span class="note">Formulaire de santé sécurisé, envoyé par courriel.</span></div></li></ol></div>
- <form onsubmit="event.preventDefault();this.querySelector('.note.ok').hidden=false">
+ <form id="bk" novalidate>
   <label>Clinique<select><option>Sainte-Thérèse</option><option>Saint-Jérôme</option></select></label>
   <label>Motif<select><option>Nouveau patient</option><option>Examen et nettoyage</option><option>Orthodontie / Invisalign</option><option>Implantologie</option><option>Autre</option></select></label>
-  <label>Date<input type="date"></label>
+  <label>Date<input type="date" id="bk-date" required></label><p class="note err" id="bk-err" hidden></p>
   <div><div style="font-size:14px;font-weight:500;margin-bottom:6px">Heures disponibles</div><div class="slots" id="slots"></div></div>
   <button class="btn" style="justify-content:center">Confirmer</button>
   <p class="note">Démo : en production, ce module serait fourni par un service de réservation relié au logiciel de la clinique.</p>
-  <p class="note ok" hidden style="color:var(--brand);font-weight:600">✓ Démo — la réservation serait confirmée ici.</p>
+  <p class="note ok" id="bk-ok" hidden style="color:var(--brand);font-weight:600"></p>
  </form>
 </div></section>
 </main>
 
-<footer><div class="wrap foot"><div><strong style="color:var(--ink)">Centre Dentaire Virtua</strong><br>Sainte-Thérèse · Saint-Jérôme</div><div>Facebook · Instagram</div></div></footer>
-<div class="callbar"><a class="btn ghost" href="tel:+14505550148">Appeler</a><a class="btn" href="#rdv">Réserver</a></div>
+<footer><div class="wrap"><div class="foot-grid">
+ <div><strong style="color:var(--ink);font-size:17px">Centre Dentaire Virtua</strong><p>Soins dentaires pour toute la famille dans les Basses-Laurentides.</p><a class="btn" style="display:inline-flex;color:#fff;margin-top:6px" href="index.html#rdv">Prendre rendez-vous</a></div>
+ <div><h4>Sainte-Thérèse</h4><span>210 boul. du Curé-Lebel</span><a href="tel:+14505550148">450 555-0148</a><a href="cliniques/sainte-therese.html">Voir la clinique →</a></div>
+ <div><h4>Saint-Jérôme</h4><span>86 rue des Martinets</span><a href="tel:+14505550189">450 555-0189</a><a href="cliniques/saint-jerome.html">Voir la clinique →</a></div>
+ <div><h4>Services</h4><a href="services/dentisterie-generale.html">Dentisterie générale</a><a href="services/orthodontie.html">Orthodontie</a><a href="services/implantologie.html">Implantologie</a><a href="services/urgences.html">Urgences</a></div>
+</div><div class="foot-legal"><span>© 2026 Centre Dentaire Virtua · Prototype fictif</span><span><a href="#" style="display:inline">Politique de confidentialité</a> · Facebook · Instagram</span></div></div></footer>
+<div class="callbar"><a class="btn ghost" href="#cliniques">Appeler</a><a class="btn" href="#rdv">Réserver</a></div>
 
 <script>
 const S=[["Dentisterie générale","Examens, nettoyages, soins pour enfants"],["Orthodontie","Invisalign, broches, appareils"],["Implantologie","Remplacer une dent de façon durable"],["Esthétique","Blanchiment, composites, couronnes en céramique"],["Greffe gingivale","Protéger et restaurer la gencive"],["Parodontie","Traitement des maladies des gencives"],["Urgences","Rendez-vous rapide en cas de douleur"],["Denturologie","Prothèses et soins associés"],["Technologies","Scan 3D, scan couleur, CariVu"]];
@@ -112,6 +119,20 @@ function team(c){document.getElementById('team').innerHTML=T[c].map(([n,r])=>`<d
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected',x===b));team(b.dataset.c)});team('st');
 slots.innerHTML=["8:00","9:30","10:30","13:00","14:00","15:30","17:00","18:30"].map(h=>`<button type="button" class="slot" aria-pressed="false">${h}</button>`).join("");
 slots.onclick=e=>{if(!e.target.classList.contains('slot'))return;slots.querySelectorAll('.slot').forEach(s=>s.setAttribute('aria-pressed',s===e.target))};
+
+(function(){const f=document.getElementById('bk'),d=document.getElementById('bk-date'),err=document.getElementById('bk-err'),ok=document.getElementById('bk-ok');
+const t=new Date();t.setDate(t.getDate()+1);d.min=t.toISOString().slice(0,10);
+const show=m=>{err.textContent=m;err.hidden=!m};
+d.addEventListener('change',()=>{const day=new Date(d.value+'T12:00').getDay();show(day===0||day===6?'Nos cliniques sont fermées la fin de semaine. Choisissez un jour de semaine.':'')});
+f.addEventListener('submit',e=>{e.preventDefault();ok.hidden=true;
+ const slot=f.querySelector('.slot[aria-pressed=true]');
+ if(!d.value)return show('Choisissez une date.');
+ const day=new Date(d.value+'T12:00').getDay();if(day===0||day===6)return show('Nos cliniques sont fermées la fin de semaine. Choisissez un jour de semaine.');
+ if(!slot)return show('Choisissez une heure.');
+ show('');const [c,m]=f.querySelectorAll('select');
+ const date=new Date(d.value+'T12:00').toLocaleDateString('fr-CA',{weekday:'long',day:'numeric',month:'long'});
+ ok.textContent=`✓ Démo : ${m.value} à ${c.value}, ${date} à ${slot.textContent}. En production, une confirmation serait envoyée par courriel.`;ok.hidden=false;});
+})();
 </script>
 <script src="reviews.js" defer></script>
 <script src="team.js" defer></script>
